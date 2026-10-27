@@ -6,7 +6,7 @@ on:
 
 jobs:
   linux:
-    name: Linux ${{ matrix.compiler }}${{ matrix.sanitize == 'ON' && ' + sanitizers' || '' }}
+    name: Linux ${{ matrix.compiler }}${{ matrix.sanitize == 'ON' && ' + sanitizers' || '' }}${{ matrix.shared == 'ON' && ' (shared)' || '' }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
@@ -14,27 +14,38 @@ jobs:
         include:
           - compiler: g++
             sanitize: OFF
+            shared: OFF
           - compiler: clang++
             sanitize: OFF
+            shared: OFF
           - compiler: g++
             sanitize: ON
+            shared: OFF
+          - compiler: clang++
+            sanitize: OFF
+            shared: ON
     steps:
       - uses: actions/checkout@v5
       - name: Configure
-        run: cmake -S Tests/SimCore -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DEMPIRE_SANITIZE=${{ matrix.sanitize }}
+        run: cmake -S Tests/SimCore -B build -DCMAKE_BUILD_TYPE=Debug -DCMAKE_CXX_COMPILER=${{ matrix.compiler }} -DEMPIRE_SANITIZE=${{ matrix.sanitize }} -DEMPIRE_SHARED=${{ matrix.shared }}
       - name: Build
         run: cmake --build build --parallel
       - name: Test
         run: ctest --test-dir build --output-on-failure
 
   windows-msvc:
-    # MSVC is the compiler Unreal Engine uses on Windows.
-    name: Windows MSVC
+    # MSVC is the compiler Unreal Engine uses on Windows. The shared variant mirrors
+    # Unreal's modular editor build, where every module is a DLL.
+    name: Windows MSVC${{ matrix.shared == 'ON' && ' (DLL)' || '' }}
     runs-on: windows-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        shared: [OFF, ON]
     steps:
       - uses: actions/checkout@v5
       - name: Configure
-        run: cmake -S Tests/SimCore -B build
+        run: cmake -S Tests/SimCore -B build -DEMPIRE_SHARED=${{ matrix.shared }}
       - name: Build
         run: cmake --build build --config Debug --parallel
       - name: Test

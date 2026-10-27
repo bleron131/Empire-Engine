@@ -37,8 +37,8 @@ Stand: 2026-10-27. Alle Angaben wurden in der Entwicklungsumgebung durch Befehle
    keine Grafikprüfung durch die KI.
 3. **Blueprints und `.uasset`/`.umap`-Dateien** sind Binärdateien, die nur der Unreal Editor erzeugen kann.
    Die KI kann sie nicht erstellen.
-4. Die genaue **Unreal-Engine-Version** lässt sich aus dieser Umgebung nicht bestimmen. Sie hängt von
-   der Installation auf deinem PC ab und muss von dir genannt werden.
+4. Die genaue **Unreal-Engine-Version** lässt sich aus dieser Umgebung nicht bestimmen. Festgelegt wurde
+   UE 5.8 aus dem Epic Games Launcher (ADR-008); das Build-Skript erkennt die installierte Version.
 
 ## 4. Was tatsächlich möglich ist
 
@@ -49,7 +49,23 @@ Stand: 2026-10-27. Alle Angaben wurden in der Entwicklungsumgebung durch Befehle
   ausdrücklich als *nicht kompiliert* gekennzeichnet, zur Prüfung auf deinem Rechner.
 - Dokumentation, Planung, Code-Reviews, Auswertung von Build-Logs, die du aus dem Editor zurückmeldest.
 
-## 5. Gewählter Ansatz
+## 5. Dein Entwicklungsrechner (laut Screenshot vom 2026-10-27)
+
+| Komponente | Wert |
+|---|---|
+| Gerät | HP Envy x360 2-in-1 Laptop 16 |
+| CPU | AMD Ryzen 7 8840HS (8 Kerne / 16 Threads, 3,3 GHz) |
+| GPU | AMD Radeon 780M, **integriert** (teilt sich den Arbeitsspeicher) |
+| RAM | 16 GB, 6400 MT/s (15,3 GB nutzbar) |
+| SSD | 954 GB, davon ca. 398 GB frei |
+| Betriebssystem | Windows 11 Home 25H2 |
+| Unreal-Erfahrung | keine |
+
+Bewertung: Unreal Engine 5 läuft darauf, aber unterhalb der üblichen Empfehlung (dedizierte GPU, 32 GB RAM).
+Kompilieren und Shader-Erzeugung werden spürbar langsam sein. Der Editor sollte auf „Mittel“ oder „Niedrig“
+laufen. Für die Entwicklung reicht das; fotorealistische Grafik lässt sich hier aber nur begrenzt beurteilen (ADR-009).
+
+## 6. Gewählter Ansatz
 
 Siehe [ADR-001](08_Entscheidungsprotokoll.md#adr-001): Die kritische Simulationslogik liegt in einem
 engine-unabhängigen Kernmodul `EmpireSimCore`, das hier vollständig testbar ist und von Unreal als

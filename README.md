@@ -3,20 +3,26 @@
 Realistische Open-World-Lebens-, Fahrzeug-, Wirtschafts- und Unternehmenssimulation
 für PC (zunächst Windows) auf Basis von Unreal Engine 5. Einzelspieler und privater Koop (2–8 Spieler).
 
-> **Aktueller Stand: Phase 0 abgeschlossen, Phase 1 begonnen.**
-> Es existiert noch **kein** Unreal-Projekt (`.uproject`). Vorhanden ist der engine-unabhängige
-> Simulationskern `EmpireSimCore` mit einem getesteten Geld-Ledger. Details: [docs/09_Fortschritt.md](docs/09_Fortschritt.md).
+> **Aktueller Stand: Phase 1 läuft.** Unreal-Projekt (UE 5.8) angelegt, aber **noch nicht auf Windows kompiliert**.
+> Der engine-unabhängige Simulationskern `EmpireSimCore` mit Geld-Ledger ist in CI getestet.
+> Details: [docs/09_Fortschritt.md](docs/09_Fortschritt.md).
+>
+> **Erste Schritte auf Windows:** [docs/11_Einrichtung_Windows.md](docs/11_Einrichtung_Windows.md)
 
 ## Repository-Struktur
 
 ```
-Source/EmpireSimCore/        Engine-unabhängiger Simulationskern (wird später als UE-Modul kompiliert)
+EmpireEngine.uproject        Unreal-Projektdatei
+Config/                      Unreal-Konfiguration
+Source/EmpireEngine/         Unreal-Gameplay-Modul (Smoke-Test unter Private/Tests)
+Source/EmpireSimCore/        Engine-unabhängiger Simulationskern (zugleich Unreal-Modul)
   Public/Empire/...          Öffentliche Header
   Private/...                Implementierung
   EmpireSimCore.Build.cs     UE-Moduldefinition (noch nicht mit UE kompiliert)
 Tests/SimCore/               Standalone-Build (CMake) und Tests des Simulationskerns
+Tools/Windows/               BuildAndTest.bat: kompilieren + Unreal-Tests + Bericht
 docs/                        Projektdokumentation (siehe unten)
-.github/workflows/           CI: Build + Tests auf Linux (GCC, Clang, Sanitizer) und Windows (MSVC)
+.github/workflows/           CI: Build + Tests auf Linux (GCC, Clang, Sanitizer, Shared) und Windows (MSVC, DLL)
 ```
 
 ## Schnellstart (Simulationskern)
@@ -44,3 +50,4 @@ Vollständige Anleitung inkl. Unreal-Schritten: [docs/10_Build_Anleitung.md](doc
 | [08_Entscheidungsprotokoll](docs/08_Entscheidungsprotokoll.md) | Architekturentscheidungen (ADR) |
 | [09_Fortschritt](docs/09_Fortschritt.md) | Fortschrittsberichte und Status je Funktion |
 | [10_Build_Anleitung](docs/10_Build_Anleitung.md) | Öffnen, Erstellen und Testen |
+| [11_Einrichtung_Windows](docs/11_Einrichtung_Windows.md) | Ersteinrichtung auf Windows ohne Vorkenntnisse |

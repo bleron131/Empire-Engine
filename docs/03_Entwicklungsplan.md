@@ -18,7 +18,7 @@ Ergebnisse: Ausgangsbericht, Architektur, Projektstruktur, dieser Plan, Werkzeug
 | AP-1.2 | Gemeinsame Spieluhr (konfigurierbare Tageslänge, Standard 60–90 reale Minuten, Datum/Jahreszeit) | – | geplant |
 | AP-1.3 | Versioniertes Speicherformat für den Kernzustand: Serialisierung, Prüfsumme, Versionsnummer, Migrationsgerüst, Integritätsprüfung beim Laden, Tests für beschädigte/abgeschnittene Daten | AP-1.1 | geplant |
 | AP-1.4 | Warenmodell und Inventar (Waren-Definitionen datengetrieben) + übergreifende Welt-Transaktion (Geld + Waren atomar) | AP-1.1 | geplant |
-| AP-1.5 | Unreal-Projekt anlegen, `EmpireSimCore` einbinden, Editor-Build erfolgreich | **[UE]** | blockiert (UE-Version nötig) |
+| AP-1.5 | Unreal-Projekt anlegen, `EmpireSimCore` einbinden, Editor-Build erfolgreich, Unreal-Smoke-Test grün | **[UE]** | implementiert, wartet auf Build auf deinem PC |
 | AP-1.6 | UE-Subsystem als Brücke zum Kern, Logging-Kategorien, Speichern/Laden auf Datenträger (atomar: temporäre Datei + Umbenennen, Backups) | AP-1.3, AP-1.5 **[UE]** | geplant |
 | AP-1.7 | Eingabe- (Enhanced Input; Maus/Tastatur/Controller) und Interaktionsarchitektur (gemeinsame Schnittstelle) | AP-1.5 **[UE]** | geplant |
 

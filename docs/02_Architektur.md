@@ -7,8 +7,8 @@
 │  Inhalte & Blueprints                                                 │
 │  Level, Gebäude-/Maschinen-Konfiguration, Interaktionsabläufe, UI-Bindung │
 ├──────────────────────────────────────────────────────────────────────┤
-│  Unreal-Gameplay-Module (C++, UObject/Actor)          [noch nicht angelegt] │
-│  EmpireGame: Charakter, Kameras, Interaktion, Fahrzeuge, Replikation, │
+│  Unreal-Gameplay-Modul EmpireEngine (C++, UObject/Actor)  [Gerüst angelegt] │
+│  EmpireEngine: Charakter, Kameras, Interaktion, Fahrzeuge, Replikation, │
 │  Speichern auf Datenträger, Subsysteme als Brücke zum Simulationskern │
 ├──────────────────────────────────────────────────────────────────────┤
 │  EmpireSimCore (C++20, engine-unabhängig)                [vorhanden]  │

@@ -13,6 +13,7 @@ namespace empire
 // Integer-only so economic calculations are deterministic across machines
 // (host and clients) and never accumulate floating-point drift.
 // Can be negative: it is used for balances as well as signed ledger deltas.
+// numeric_limits calls are parenthesized so a Windows min/max macro cannot break them.
 class FMoney
 {
 public:
@@ -33,8 +34,8 @@ public:
 	// Overflow-checked arithmetic. Returns std::nullopt instead of wrapping.
 	static constexpr std::optional<FMoney> CheckedAdd(FMoney A, FMoney B)
 	{
-		constexpr Rep Max = std::numeric_limits<Rep>::max();
-		constexpr Rep Min = std::numeric_limits<Rep>::min();
+		constexpr Rep Max = (std::numeric_limits<Rep>::max)();
+		constexpr Rep Min = (std::numeric_limits<Rep>::min)();
 		if ((B.Value > 0 && A.Value > Max - B.Value) || (B.Value < 0 && A.Value < Min - B.Value))
 		{
 			return std::nullopt;
@@ -44,8 +45,8 @@ public:
 
 	static constexpr std::optional<FMoney> CheckedSub(FMoney A, FMoney B)
 	{
-		constexpr Rep Max = std::numeric_limits<Rep>::max();
-		constexpr Rep Min = std::numeric_limits<Rep>::min();
+		constexpr Rep Max = (std::numeric_limits<Rep>::max)();
+		constexpr Rep Min = (std::numeric_limits<Rep>::min)();
 		if ((B.Value > 0 && A.Value < Min + B.Value) || (B.Value < 0 && A.Value > Max + B.Value))
 		{
 			return std::nullopt;
@@ -55,7 +56,7 @@ public:
 
 	static constexpr std::optional<FMoney> CheckedNegate(FMoney A)
 	{
-		if (A.Value == std::numeric_limits<Rep>::min())
+		if (A.Value == (std::numeric_limits<Rep>::min)())
 		{
 			return std::nullopt;
 		}

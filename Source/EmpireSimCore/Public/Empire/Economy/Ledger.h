@@ -161,17 +161,20 @@ struct FLedgerIntegrityReport
 //  - Rejected transactions change nothing and do not consume their idempotency key.
 //
 // Not thread-safe by design: owned and mutated only by the authoritative host.
-class EMPIRESIMCORE_API FLedger
+//
+// Members are exported individually instead of the whole class: exporting a class with
+// std:: members from a DLL (Unreal's modular editor builds) triggers MSVC warning C4251.
+class FLedger
 {
 public:
-	FAccountId OpenAccount(const FAccountSpec& Spec);
+	EMPIRESIMCORE_API FAccountId OpenAccount(const FAccountSpec& Spec);
 
-	const FAccount* FindAccount(FAccountId Id) const;
+	EMPIRESIMCORE_API const FAccount* FindAccount(FAccountId Id) const;
 
-	FTransactionResult Commit(const FTransactionRequest& Request);
+	EMPIRESIMCORE_API FTransactionResult Commit(const FTransactionRequest& Request);
 
 	// Convenience for the common two-party case: moves Amount (> 0) from one account to another.
-	FTransactionResult Transfer(std::string IdempotencyKey, FAccountId From, FAccountId To, FMoney Amount,
+	EMPIRESIMCORE_API FTransactionResult Transfer(std::string IdempotencyKey, FAccountId From, FAccountId To, FMoney Amount,
 		ETransactionReason Reason, std::int64_t GameTime, std::string Memo = {});
 
 	const std::vector<FTransactionRecord>& GetJournal() const { return Journal; }
@@ -179,11 +182,11 @@ public:
 	// Sum of all non-system balances: the money currently held by players, NPCs and companies.
 	// Internal transfers between participants never change this value.
 	// Returns std::nullopt if the total is not representable.
-	std::optional<FMoney> GetCirculatingMoney() const;
+	EMPIRESIMCORE_API std::optional<FMoney> GetCirculatingMoney() const;
 
 	// Replays the journal from zero and compares the result with the stored balances.
 	// Used after loading and in tests to detect corrupted or inconsistent state.
-	FLedgerIntegrityReport VerifyIntegrity() const;
+	EMPIRESIMCORE_API FLedgerIntegrityReport VerifyIntegrity() const;
 
 private:
 	std::unordered_map<FAccountId, FAccount> Accounts;
