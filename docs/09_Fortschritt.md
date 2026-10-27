@@ -10,7 +10,7 @@ Zustände: Geplant · In Arbeit · Implementiert · Kompiliert · Getestet · Im
 | `FMoney` (überlaufsicher, ganzzahlig) | **Getestet** (Standalone: GCC, Clang, ASan/UBSan) | `Tests/SimCore/MoneyTests.cpp` |
 | `FLedger` (atomar, Idempotenz, Integritätsprüfung) | **Getestet** (Standalone: GCC, Clang, ASan/UBSan) | `Tests/SimCore/LedgerTests.cpp` |
 | Kern unter MSVC | **Getestet** (CI, `windows-latest`) | `.github/workflows/simcore.yml` |
-| Kern als DLL (wie Unreal-Editor-Build) | **Getestet** lokal (GCC/Clang shared); MSVC-DLL siehe CI | `EMPIRE_SHARED=ON` |
+| Kern als DLL (wie Unreal-Editor-Build) | **Getestet** (GCC/Clang shared lokal; MSVC-DLL in CI-Lauf 3, `/W4 /WX`, keine C4251) | `EMPIRE_SHARED=ON` |
 | UE-Modul `EmpireSimCore` (`Build.cs`, Modulregistrierung) | **Implementiert**, nicht kompiliert | wartet auf deinen PC |
 | Unreal-Projekt (`.uproject`, Targets, Modul `EmpireEngine`, Config) | **Implementiert**, nicht kompiliert | AP-1.5, wartet auf deinen PC |
 | Unreal-Smoke-Test `Empire.SimCore.LedgerSmoke` | **Implementiert**, nicht ausgeführt | AP-1.5 |

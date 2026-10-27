@@ -32,6 +32,7 @@ Umgebung: Ubuntu 24.04, Testlauf `EmpireSimCoreTests`.
 | GCC 13.3 und Clang 18.1, Shared Library mit versteckten Symbolen (`EMPIRE_SHARED=ON`) | 19/19 bestanden |
 | Gegenprobe: Export von `VerifyIntegrity` entfernt | Linkfehler erkannt (`undefined reference`), danach wiederhergestellt |
 | Wiederholung GCC, Clang, GCC + Sanitizer, Release (statisch) | je 19/19 bestanden |
+| CI-Lauf 3: Linux GCC, Clang, GCC + Sanitizer, Clang shared; Windows MSVC statisch und als DLL | alle 6 Jobs bestanden |
 | Unreal-Smoke-Test `Empire.SimCore.LedgerSmoke` | **nicht ausgeführt** – benötigt Unreal auf deinem PC |
 | `BuildAndTest.ps1` | **nicht ausgeführt** – keine Windows-/PowerShell-Umgebung bei der KI |
 
