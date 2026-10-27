@@ -1,0 +1,27 @@
+# Unreal Engine generated / restorable files
+Binaries/
+Intermediate/
+Saved/
+DerivedDataCache/
+Plugins/**/Binaries/
+Plugins/**/Intermediate/
+*.sln
+*.suo
+*.opensdf
+*.sdf
+*.VC.db
+*.VC.opendb
+.vs/
+.vsconfig.user
+.idea/
+.vscode/
+compile_commands.json
+
+# Standalone simulation core builds
+build/
+out/
+cmake-build-*/
+
+# OS files
+.DS_Store
+Thumbs.db

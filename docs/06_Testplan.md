@@ -1,0 +1,53 @@
+# Testplan
+
+## 1. Testebenen
+
+| Ebene | Werkzeug | Ausführbar durch KI? |
+|---|---|---|
+| Unit-/Eigenschaftstests des Simulationskerns | `Tests/SimCore` (CMake, eigenes Mini-Framework) | **ja** |
+| CI (Linux GCC/Clang/Sanitizer, Windows MSVC) | GitHub Actions `.github/workflows/simcore.yml` | ja (Ergebnis abrufbar) |
+| Unreal-Automation-Tests (Gameplay, Integration) | UE Automation / Functional Tests | **nein** – auf deinem PC |
+| Multiplayer-Tests | PIE mit mehreren Clients, später echte Sitzungen | **nein** – auf deinem PC |
+| Performance-Messungen | Unreal Insights, `stat unit` auf realer Hardware | **nein** – auf deinem PC |
+| Manuelle Funktionstests | Checklisten je Abnahmekriterium | **nein** – auf deinem PC |
+
+## 2. Tatsächlich ausgeführte Tests (2026-10-27)
+
+Umgebung: Ubuntu 24.04, Testlauf `EmpireSimCoreTests`.
+
+| Konfiguration | Ergebnis |
+|---|---|
+| GCC 13.3, Debug, `-Werror` | 19/19 bestanden |
+| Clang 18.1, Debug, `-Werror` | 19/19 bestanden |
+| GCC 13.3, Debug, ASan + UBSan | 19/19 bestanden, keine Befunde |
+| GCC 13.3, Release (`-O2`) | 19/19 bestanden |
+| Clang + Sanitizer | **nicht ausgeführt** – Sanitizer-Runtime fehlt in der Umgebung |
+| MSVC | **lokal nicht ausgeführt** – Ergebnis siehe CI |
+
+**Gegenprobe:** Die Summenprüfung im Ledger wurde testweise deaktiviert. Der Test
+`Ledger_RejectsMalformedRequests` schlug daraufhin wie erwartet fehl; danach wurde der Code wiederhergestellt.
+Erkenntnis: Der Zufallstest allein hätte diesen Fehler nicht gefunden, weil `Transfer` immer
+ausgeglichen bucht. Gezielte Negativtests bleiben deshalb nötig.
+
+## 3. Abgedeckte Anforderungen (Wirtschaftstests §19.2)
+
+| Anforderung | Test(s) |
+|---|---|
+| Keine unberechtigte Geldgenerierung | `InternalTransfersDoNotCreateMoney`, `RandomOperationsPreserveInvariants`, `RejectsMalformedRequests` |
+| Keine Doppelauszahlung | `DuplicateKeyNeverPaysTwice`, `ReusedKeyWithDifferentContentIsConflict` |
+| Atomarität | `MultiPostingIsAtomicWhenOneLegFails`, `InsufficientFundsChangesNothing` |
+| Keine negativen Salden ohne Kreditrahmen | `InsufficientFundsChangesNothing`, `CreditLineAllowsNegativeUpToLimit`, Zufallstest |
+| Überlauf | `OverflowIsRejected`, `Money_*` |
+| Konsistenzprüfung | `VerifyIntegrityPassesOnConsistentState`, Zufallstest |
+
+**Noch nicht abgedeckt:** Erkennung manipulierter/beschädigter Zustände durch `VerifyIntegrity`
+(sinnvoll testbar erst mit dem Laden von Speicherständen, AP-1.3), Waren, Aufträge, Schulden/Insolvenz.
+
+## 4. Ausführen
+
+```bash
+cmake -S Tests/SimCore -B build/simcore
+cmake --build build/simcore
+ctest --test-dir build/simcore --output-on-failure
+# einzelne Tests: build/simcore/EmpireSimCoreTests Ledger_
+```
