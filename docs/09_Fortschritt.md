@@ -9,7 +9,7 @@ Zustände: Geplant · In Arbeit · Implementiert · Kompiliert · Getestet · Im
 | Phase-0-Bestandsaufnahme und Dokumentation | abgeschlossen | `docs/00`–`10` |
 | `FMoney` (überlaufsicher, ganzzahlig) | **Getestet** (Standalone: GCC, Clang, ASan/UBSan) | `Tests/SimCore/MoneyTests.cpp` |
 | `FLedger` (atomar, Idempotenz, Integritätsprüfung) | **Getestet** (Standalone: GCC, Clang, ASan/UBSan) | `Tests/SimCore/LedgerTests.cpp` |
-| Kern unter MSVC | siehe CI-Lauf | `.github/workflows/simcore.yml` |
+| Kern unter MSVC | **Getestet** (CI, `windows-latest`) | `.github/workflows/simcore.yml` |
 | UE-Modul `EmpireSimCore` (`Build.cs`, Modulregistrierung) | **Implementiert**, nicht kompiliert | benötigt UE |
 | Unreal-Projekt | **Blockiert** – UE-Version unbekannt | AP-1.5 |
 | Spieluhr, Speicherformat, Inventar, Welt-Transaktion | Geplant | AP-1.2 – AP-1.4 |
@@ -27,7 +27,8 @@ und Tests; CI für Linux und Windows.
 `Source/EmpireSimCore/**`, `Tests/SimCore/**` (alle neu).
 
 **C. Tests:** 19 Tests, alle bestanden mit GCC 13.3 und Clang 18.1 (Debug, `-Werror`), GCC Release und GCC
-mit ASan/UBSan. Die Gegenprobe (absichtlicher Fehler) wurde erkannt. Clang-Sanitizer und MSVC wurden lokal nicht ausgeführt.
+mit ASan/UBSan. Die Gegenprobe (absichtlicher Fehler) wurde erkannt. In der CI (GitHub Actions) sind alle 4 Jobs grün:
+Linux GCC, Linux Clang, Linux GCC + Sanitizer, Windows MSVC. Clang-Sanitizer wurden lokal nicht ausgeführt.
 
 **D. Offen:** L-001 bis L-007 in `07_Bekannte_Fehler.md`; ADR-001 wartet auf deine Bestätigung.
 

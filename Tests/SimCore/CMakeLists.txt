@@ -29,6 +29,8 @@ target_include_directories(EmpireSimCore PUBLIC "${EMPIRE_MODULE_DIR}/Public")
 # Mirror Unreal's defaults (no exceptions, no RTTI) and its strict warning settings,
 # so code that builds here does not break once compiled by Unreal Build Tool.
 if(MSVC)
+	# Drop CMake's default /EHsc so it does not conflict with /EHs-c- (warning D9025).
+	string(REPLACE "/EHsc" "" CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS}")
 	target_compile_options(EmpireSimCore PUBLIC /W4 /permissive- /GR- /EHs-c- /D_HAS_EXCEPTIONS=0)
 	if(EMPIRE_WARNINGS_AS_ERRORS)
 		target_compile_options(EmpireSimCore PUBLIC /WX)

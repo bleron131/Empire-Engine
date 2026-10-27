@@ -22,7 +22,8 @@ Umgebung: Ubuntu 24.04, Testlauf `EmpireSimCoreTests`.
 | GCC 13.3, Debug, ASan + UBSan | 19/19 bestanden, keine Befunde |
 | GCC 13.3, Release (`-O2`) | 19/19 bestanden |
 | Clang + Sanitizer | **nicht ausgeführt** – Sanitizer-Runtime fehlt in der Umgebung |
-| MSVC | **lokal nicht ausgeführt** – Ergebnis siehe CI |
+| MSVC (GitHub Actions `windows-latest`, Debug, `/W4 /WX`) | bestanden (CI-Lauf 1) |
+| CI Linux GCC, Clang, GCC + Sanitizer | bestanden (CI-Lauf 1) |
 
 **Gegenprobe:** Die Summenprüfung im Ledger wurde testweise deaktiviert. Der Test
 `Ledger_RejectsMalformedRequests` schlug daraufhin wie erwartet fehl; danach wurde der Code wiederhergestellt.

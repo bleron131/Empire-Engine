@@ -13,5 +13,5 @@ Derzeit keine bekannten Fehler im getesteten Code.
 | L-003 | Ledger | Duplikaterkennung vergleicht nur Postings und Grund, nicht Memo/Spielzeit (gewollt: Wiederholungen dürfen später erfolgen) | – (dokumentiertes Verhalten) |
 | L-004 | Ledger | Kontodaten (Name, Eigentümer, Kreditrahmen) sind nach dem Anlegen nicht änderbar | Bei Bedarf mit Eigentumswechsel/Krediten |
 | L-005 | Ledger | Nur eine Währung | ADR-002 offen |
-| L-006 | Tests | Clang-Sanitizer lokal nicht verfügbar; MSVC nur über CI geprüft | – |
+| L-006 | Tests | Clang-Sanitizer lokal nicht verfügbar (GCC-Sanitizer laufen lokal und in CI); MSVC nur über CI geprüft | – |
 | L-007 | Ledger | Nicht thread-sicher (gewollt, Host-autoritativ, Game-Thread) | Bei Bedarf asynchrone Hintergrundsimulation über Befehlswarteschlange |
